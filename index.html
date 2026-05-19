@@ -7,19 +7,25 @@
   <style>
     body { margin:0; min-height:100vh; display:grid; place-items:center; background:#111827; color:#f9fafb; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; padding:24px; }
     .card { max-width:520px; background:#1f2937; border:1px solid rgba(255,255,255,.12); border-radius:24px; padding:24px; box-shadow:0 18px 40px rgba(0,0,0,.35); }
-    h1 { margin-top:0; }
-    a, button { display:inline-block; margin-top:12px; border:0; border-radius:14px; padding:12px 16px; background:#0284c7; color:white; font-weight:800; text-decoration:none; }
-    .muted { color:#9ca3af; }
+    h1 { margin-top:0; font-size:1.35rem; }
+    a, button { display:inline-block; margin-top:12px; border:0; border-radius:14px; padding:12px 16px; background:#0284c7; color:white; font-weight:800; text-decoration:none; font-family:inherit; font-size:1rem; }
+    .muted { color:#9ca3af; line-height:1.4; }
+    .secondary { background:#334155; }
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Cache wird gelöscht</h1>
     <p id="status">Service Worker und App-Cache werden entfernt…</p>
-    <p class="muted">Version: v8-visible-cachefix</p>
-    <a href="./?v=8" id="backLink">Zur App</a>
+    <p class="muted">Version: v9-autoredirect</p>
+    <button id="goButton" style="display:none">App jetzt öffnen</button>
+    <a href="./?v=9" id="backLink" class="secondary">Falls nichts passiert: Zur App</a>
   </div>
   <script>
+    const appUrl = new URL('./', window.location.href);
+    appUrl.searchParams.set('v', '9');
+    appUrl.searchParams.set('fresh', String(Date.now()));
+
     async function clearAppCache() {
       try {
         if ('serviceWorker' in navigator) {
@@ -30,11 +36,22 @@
           const keys = await caches.keys();
           await Promise.all(keys.map(key => caches.delete(key)));
         }
-        document.getElementById('status').textContent = 'Cache gelöscht. Öffne jetzt die App neu.';
+        document.getElementById('status').textContent = 'Cache gelöscht. Die App wird jetzt neu geöffnet…';
       } catch (e) {
-        document.getElementById('status').textContent = 'Cache konnte nicht vollständig gelöscht werden. Öffne die App mit ?v=8 neu.';
+        document.getElementById('status').textContent = 'Cache wurde möglicherweise nicht vollständig gelöscht. Die App wird trotzdem neu geöffnet…';
+      } finally {
+        const goButton = document.getElementById('goButton');
+        const backLink = document.getElementById('backLink');
+        goButton.style.display = 'inline-block';
+        goButton.onclick = () => window.location.assign(appUrl.href);
+        backLink.href = appUrl.href;
+
+        setTimeout(() => {
+          window.location.replace(appUrl.href);
+        }, 900);
       }
     }
+
     clearAppCache();
   </script>
 </body>

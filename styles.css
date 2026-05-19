@@ -54,9 +54,9 @@ Für Schachuhr-Einstellungen:
 
 ## Version
 
-v8-visible-cachefix
+v9-autoredirect
 
-Diese Version zeigt oben im Header sichtbar `v8-visible-cachefix` an. Wenn du diese Anzeige nicht siehst, lädt dein iPad noch eine alte App-Version aus dem Cache.
+Diese Version zeigt oben im Header sichtbar `v9-autoredirect` an. Wenn du diese Anzeige nicht siehst, lädt dein iPad noch eine alte App-Version aus dem Cache.
 
 ## Cache-Reset
 
@@ -66,4 +66,15 @@ Nach dem Hochladen auf GitHub Pages einmal öffnen:
 https://DEIN-NAME.github.io/DEIN-REPO/clear-cache.html
 ```
 
-Danach die App über `...?v=8` öffnen und neu zum Home-Bildschirm hinzufügen.
+Danach die App über `...?v=9` öffnen und neu zum Home-Bildschirm hinzufügen.
+
+
+## Cache-Update v9
+
+Nach Upload diese URL auf dem iPad öffnen:
+
+```text
+https://DEIN-GITHUB-NAME.github.io/DEIN-REPO/clear-cache.html?v=9
+```
+
+Die Seite leitet nach dem Löschen automatisch zur App zurück. Falls nicht, den Button „App jetzt öffnen“ bzw. „Zur App“ nutzen.

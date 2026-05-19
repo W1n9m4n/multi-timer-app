@@ -1,10 +1,10 @@
-const CACHE_NAME = "multi-timer-chess-pwa-v8-visible-cachefix";
+const CACHE_NAME = "multi-timer-chess-pwa-v9-autoredirect";
 const ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=v8",
-  "./app.js?v=v8",
-  "./manifest.webmanifest?v=v8",
+  "./styles.css?v=v9",
+  "./app.js?v=v9",
+  "./manifest.webmanifest?v=v9",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./clear-cache.html"
