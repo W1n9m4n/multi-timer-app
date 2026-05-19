@@ -85,3 +85,8 @@ Einstellungen → Anzeige & Helligkeit → Automatische Sperre → Nie
 | `Zurücksetzen` | Restzeit, Aktivzeit und Züge zurücksetzen |
 | Spielerfläche 5 Sekunden halten | Schachuhr-Einstellungen öffnen |
 | Zeitablauf | 10 Sekunden Alarm, danach ruhig weiter sichtbar |
+
+
+## iPad Long-Press Fix
+
+Diese Version deaktiviert Textauswahl und das iOS-Touch-Callout auf Timer- und Schachuhr-Flächen, damit langes Drücken die Einstellungen öffnet statt Text zu markieren.

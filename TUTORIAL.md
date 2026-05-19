@@ -195,3 +195,8 @@ Diese App ist eine GitHub-Pages-PWA, keine native iOS-App.
 | App später wieder geöffnet | Zeit wird nachberechnet |
 
 Für einen echten Hintergrund-Wecker bräuchte man eine native iOS-App oder Push-Infrastruktur.
+
+
+## iPad Long-Press Fix
+
+Diese Version deaktiviert Textauswahl und das iOS-Touch-Callout auf Timer- und Schachuhr-Flächen, damit langes Drücken die Einstellungen öffnet statt Text zu markieren.

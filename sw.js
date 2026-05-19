@@ -1,4 +1,4 @@
-const CACHE_NAME = "multi-timer-chess-pwa-v1";
+const CACHE_NAME = "multi-timer-chess-pwa-v2";
 const ASSETS = [
   "./",
   "./index.html",

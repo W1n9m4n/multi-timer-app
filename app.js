@@ -216,18 +216,11 @@
         </div>
       `;
 
-      card.addEventListener("click", () => {
-        if (longPressTriggered) {
-          longPressTriggered = false;
-          return;
-        }
-        toggleTimer(timer.id);
-      });
-      card.addEventListener("pointerdown", () => startLongPress(() => openTimerSettings(timer.id)));
-      card.addEventListener("pointerup", cancelLongPress);
-      card.addEventListener("pointercancel", cancelLongPress);
-      card.addEventListener("pointerleave", cancelLongPress);
-      card.addEventListener("contextmenu", (event) => event.preventDefault());
+      bindPressHandlers(
+        card,
+        () => toggleTimer(timer.id),
+        () => openTimerSettings(timer.id)
+      );
 
       elements.timerGrid.appendChild(card);
     });
@@ -259,18 +252,11 @@
         </div>
       `;
 
-      panel.addEventListener("click", () => {
-        if (longPressTriggered) {
-          longPressTriggered = false;
-          return;
-        }
-        pressChessPlayer(index);
-      });
-      panel.addEventListener("pointerdown", () => startLongPress(openChessSettings));
-      panel.addEventListener("pointerup", cancelLongPress);
-      panel.addEventListener("pointercancel", cancelLongPress);
-      panel.addEventListener("pointerleave", cancelLongPress);
-      panel.addEventListener("contextmenu", (event) => event.preventDefault());
+      bindPressHandlers(
+        panel,
+        () => pressChessPlayer(index),
+        openChessSettings
+      );
 
       elements.chessPlayers.appendChild(panel);
     });
@@ -615,6 +601,40 @@
     const number = Number(value || 0);
     if (!Number.isFinite(number)) return min;
     return Math.min(max, Math.max(min, Math.floor(number)));
+  }
+
+
+  function bindPressHandlers(element, onTap, onLongPress) {
+    element.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "touch" || event.pointerType === "pen") {
+        event.preventDefault();
+      }
+      startLongPress(onLongPress);
+    });
+
+    element.addEventListener("pointerup", (event) => {
+      if (event.pointerType === "touch" || event.pointerType === "pen") {
+        event.preventDefault();
+      }
+      const wasLongPress = longPressTriggered;
+      cancelLongPress();
+      if (wasLongPress) {
+        longPressTriggered = false;
+        return;
+      }
+      onTap();
+    });
+
+    element.addEventListener("pointercancel", cancelLongPress);
+    element.addEventListener("pointerleave", cancelLongPress);
+    element.addEventListener("contextmenu", (event) => event.preventDefault());
+
+    element.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onTap();
+      }
+    });
   }
 
   function startLongPress(callback) {
