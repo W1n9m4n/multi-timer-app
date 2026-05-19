@@ -76,3 +76,15 @@ Nach dem Start einmal `Ton aktivieren / testen` antippen.
 ## Hinweis
 
 Eine PWA klingelt auf iPad/iPhone nur zuverlässig, wenn die App offen ist und der Bildschirm aktiv bleibt.
+
+
+## Update v4
+
+- Schachuhr: Spieler 1 bleibt beim Ablauf korrekt gedreht; keine merkwürdige Rotation mehr.
+- Timer-Karten: Status links und Hinweis rechts sind klar getrennt.
+
+
+## Update v5
+
+- Leiser Klickton für normale Button-Aktionen ergänzt.
+- Service-Worker-Cache auf `v5-clicksound` erhöht.

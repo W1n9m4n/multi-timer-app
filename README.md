@@ -24,3 +24,15 @@ Long-Press bleibt zusätzlich vorhanden, ist auf iPadOS aber nicht immer zuverl�
 
 Für Schachuhr-Einstellungen:
 - Im Schachuhr-Tab oben rechts auf das Zahnrad tippen.
+
+
+## Update v4
+
+- Schachuhr: Spieler 1 bleibt beim Ablauf korrekt gedreht; keine merkwürdige Rotation mehr.
+- Timer-Karten: Status links und Hinweis rechts sind klar getrennt.
+
+
+## Update v5
+
+- Leiser Klickton für normale Button-Aktionen ergänzt.
+- Service-Worker-Cache auf `v5-clicksound` erhöht.

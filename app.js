@@ -591,6 +591,7 @@ function bindPressHandlers(element, onTap, onLongPress) {
       return;
     }
 
+    playUiClick();
     onTap();
   }
 
@@ -646,6 +647,7 @@ function bindPressHandlers(element, onTap, onLongPress) {
   element.addEventListener("keydown", event => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
+      playUiClick();
       onTap();
     }
   });
@@ -654,6 +656,27 @@ function bindPressHandlers(element, onTap, onLongPress) {
 function ensureAudio() {
   if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
   if (audioContext.state === "suspended") audioContext.resume();
+}
+
+function playUiClick() {
+  ensureAudio();
+  if (!audioContext) return;
+
+  const now = audioContext.currentTime;
+  const osc = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(740, now);
+  osc.frequency.exponentialRampToValueAtTime(520, now + 0.045);
+
+  gain.gain.setValueAtTime(0.0001, now);
+  gain.gain.exponentialRampToValueAtTime(0.045, now + 0.006);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+
+  osc.connect(gain).connect(audioContext.destination);
+  osc.start(now);
+  osc.stop(now + 0.055);
 }
 
 function playTone(type = "bell") {
@@ -754,6 +777,12 @@ document.getElementById("cancelChessSettingsBtn").onclick = closeChessSettings;
 document.getElementById("saveChessSettingsBtn").onclick = saveChessSettings;
 document.getElementById("resetChessStatsBtn").onclick = () => resetChess(true);
 document.getElementById("testChessSoundBtn").onclick = () => playTone(document.getElementById("chessSound").value);
+
+document.addEventListener("click", event => {
+  const button = event.target.closest("button");
+  if (!button || button.classList.contains("pressable")) return;
+  playUiClick();
+}, true);
 
 timerModal.addEventListener("click", event => {
   if (event.target === timerModal) closeTimerSettings();
