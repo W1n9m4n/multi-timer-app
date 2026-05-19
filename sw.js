@@ -94,6 +94,20 @@ h1 {
   letter-spacing: -0.02em;
 }
 
+
+.version-badge {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(56,189,248,0.14);
+  border: 1px solid rgba(56,189,248,0.22);
+  color: #bae6fd;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
 .board-name {
   color: var(--muted);
   font-size: 0.78rem;

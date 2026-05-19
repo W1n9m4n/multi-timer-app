@@ -8,9 +8,9 @@
   <meta name="apple-mobile-web-app-title" content="Multi Timer" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Multi Timer</title>
-  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="manifest" href="manifest.webmanifest?v=v8" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=v8" />
 </head>
 <body>
   <div class="phone" role="application" aria-label="Multi Timer Dashboard">
@@ -19,6 +19,7 @@
         <div class="title-area">
           <h1 id="mainTitle">Multi Timer</h1>
           <div class="board-name" id="boardName">Board: Tabletop Abend</div>
+          <div class="version-badge" id="versionBadge">v8</div>
         </div>
 
         <div class="actions">
@@ -168,6 +169,17 @@
     </div>
   </div>
 
-  <script src="app.js"></script>
+  
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js?v=v8").then(reg => {
+          reg.update();
+          if (reg.waiting) reg.waiting.postMessage({ type: "SKIP_WAITING" });
+        }).catch(() => {});
+      });
+    }
+  </script>
+  <script src="app.js?v=v8"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 {
-  "name": "Multi Timer & Schachuhr",
+  "name": "Multi Timer + Schachuhr v8",
   "short_name": "Multi Timer",
   "description": "Programmierbare Timer, Timer-Boards und Schachuhr für iPad und iPhone.",
   "start_url": ".",
