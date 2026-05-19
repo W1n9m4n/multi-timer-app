@@ -1,90 +1,32 @@
-# Schritt-für-Schritt: App auf iPad installieren
+const CACHE_NAME = "multi-timer-chess-pwa-v7-audio-chesscontinue";
+const ASSETS = [
+  "./",
+  "./index.html",
+  "./styles.css",
+  "./app.js",
+  "./manifest.webmanifest",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
+];
 
-## 1. ZIP entpacken
+self.addEventListener("install", event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+  );
+});
 
-Entpacke die ZIP-Datei auf deinem Windows-PC.
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key)))
+    ).then(() => self.clients.claim())
+  );
+});
 
-## 2. GitHub-Repository öffnen
-
-Öffne dein Repository, in dem die App bereits deployed ist.
-
-## 3. Dateien ersetzen
-
-Lade den Inhalt des entpackten Ordners hoch und ersetze die alten Dateien:
-
-- index.html
-- styles.css
-- app.js
-- manifest.webmanifest
-- sw.js
-- .nojekyll
-- icons/
-
-Wichtig: Die Dateien müssen direkt im Hauptverzeichnis liegen, nicht in einem Unterordner.
-
-## 4. Commit ausführen
-
-Unten auf `Commit changes` klicken.
-
-## 5. GitHub Pages warten lassen
-
-Warte, bis GitHub Pages neu deployed hat.
-
-## 6. iPad-Cache leeren / App aktualisieren
-
-Da die App offline cached, kann das iPad die alte Version behalten.
-
-Empfohlen:
-
-1. Home-Screen-App vom iPad löschen.
-2. Safari öffnen.
-3. GitHub-Pages-Link öffnen.
-4. Seite neu laden.
-5. Teilen → Zum Home-Bildschirm.
-6. App neu hinzufügen.
-
-## 7. Ton aktivieren
-
-Nach dem Start einmal `Ton aktivieren / testen` antippen.
-
-## 8. Bedienung
-
-### Timer bearbeiten
-
-1. Oben auf `Bearb.` tippen.
-2. Timer antippen.
-3. Einstellungen ändern.
-4. Speichern.
-5. Oben auf `Fertig` tippen.
-
-### Timer starten
-
-- Wenn Bearbeiten aus ist: Timer antippen.
-
-### Schachuhr einstellen
-
-- Schachuhr-Tab öffnen.
-- Oben rechts Zahnrad antippen.
-- Zeit, Namen, Farben und Sound einstellen.
-
-### Schachuhr verwenden
-
-- Spielerfläche antippen: eigener Zug endet, anderer Spieler startet.
-- `Stopp / Pause`: gesamte Uhr pausieren.
-- `Zurücksetzen`: Restzeit, Aktivzeit und Züge zurücksetzen.
-
-## Hinweis
-
-Eine PWA klingelt auf iPad/iPhone nur zuverlässig, wenn die App offen ist und der Bildschirm aktiv bleibt.
-
-
-## Update v4
-
-- Schachuhr: Spieler 1 bleibt beim Ablauf korrekt gedreht; keine merkwürdige Rotation mehr.
-- Timer-Karten: Status links und Hinweis rechts sind klar getrennt.
-
-
-## Update v5
-
-- Leiser Klickton für normale Button-Aktionen ergänzt.
-- Service-Worker-Cache auf `v5-clicksound` erhöht.
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
+});
