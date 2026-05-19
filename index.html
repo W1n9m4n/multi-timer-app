@@ -2,28 +2,30 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#111827" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Multi Timer" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <title>Multi Timer</title>
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="./icons/icon-180.png" />
-  <link rel="icon" href="./icons/icon-192.png" />
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="phone" role="application" aria-label="Multi Timer Dashboard">
     <header>
       <div class="topline">
-        <div>
+        <div class="title-area">
           <h1 id="mainTitle">Multi Timer</h1>
           <div class="board-name" id="boardName">Board: Tabletop Abend</div>
         </div>
-        <div class="actions" id="timerActions">
-          <button class="small-btn" id="boardsBtn" type="button">Boards</button>
-          <button class="icon-btn" id="addTimerBtn" type="button" aria-label="Timer hinzufügen">+</button>
+
+        <div class="actions">
+          <button class="small-btn timer-action" id="boardsBtn" type="button">Boards</button>
+          <button class="icon-btn timer-action" id="addTimerBtn" type="button" aria-label="Timer hinzufügen">+</button>
+          <button class="small-btn timer-action" id="editModeBtn" type="button">Bearb.</button>
+          <button class="icon-btn chess-action hidden" id="chessSettingsBtn" type="button" aria-label="Schachuhr einstellen">⚙</button>
         </div>
       </div>
 
@@ -39,6 +41,7 @@
 
     <main>
       <section class="view active" id="timerView">
+        <div class="edit-banner hidden" id="editBanner">Bearbeiten aktiv: Timer antippen, um Einstellungen zu öffnen.</div>
         <section class="timer-grid" id="timerGrid" aria-label="Timer"></section>
         <div class="bottom-bar">
           <button id="resetAllBtn" type="button">Alle zurücksetzen</button>
@@ -51,7 +54,7 @@
           <span class="chess-board-title" id="chessTitle">Schachuhr</span>
           <span class="chess-status" id="chessStatus">bereit</span>
         </div>
-        <section class="chess-players" id="chessPlayers" aria-label="Schachuhr Spieler"></section>
+        <section class="chess-players" id="chessPlayers"></section>
         <div class="chess-controls">
           <button id="pauseChessBtn" type="button">Stopp / Pause</button>
           <button id="resetChessBtn" type="button">Zurücksetzen</button>
@@ -60,8 +63,8 @@
     </main>
   </div>
 
-  <div class="modal-backdrop" id="timerModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Timer bearbeiten">
+  <div class="modal-backdrop" id="timerModal">
+    <div class="modal">
       <h2>Timer bearbeiten</h2>
       <input type="hidden" id="timerId" />
 
@@ -70,9 +73,9 @@
 
       <label>Zeit</label>
       <div class="time-fields">
-        <input id="timerHours" type="number" min="0" max="99" placeholder="Std" inputmode="numeric" />
-        <input id="timerMinutes" type="number" min="0" max="59" placeholder="Min" inputmode="numeric" />
-        <input id="timerSeconds" type="number" min="0" max="59" placeholder="Sek" inputmode="numeric" />
+        <input id="timerHours" type="number" min="0" max="99" inputmode="numeric" placeholder="Std" />
+        <input id="timerMinutes" type="number" min="0" max="59" inputmode="numeric" placeholder="Min" />
+        <input id="timerSeconds" type="number" min="0" max="59" inputmode="numeric" placeholder="Sek" />
       </div>
 
       <label for="timerColor">Farbe</label>
@@ -86,7 +89,10 @@
         <option value="soft">Soft</option>
       </select>
 
-      <div class="helper">Timer-Kachel 5 Sekunden gedrückt halten, um diese Einstellungen zu öffnen.</div>
+      <div class="helper">
+        Tipp: Auf iPad/iPhone ist der Bearbeiten-Modus zuverlässiger als langes Drücken.
+        Long-Press bleibt zusätzlich aktiv.
+      </div>
 
       <div class="modal-actions">
         <button class="secondary" id="cancelTimerBtn" type="button">Abbrechen</button>
@@ -97,12 +103,13 @@
     </div>
   </div>
 
-  <div class="modal-backdrop" id="boardsModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Timer Boards">
+  <div class="modal-backdrop" id="boardsModal">
+    <div class="modal">
       <h2>Dashboard / Boards</h2>
 
       <label for="newBoardName">Neues Board</label>
       <input id="newBoardName" placeholder="z. B. Küche, Workout, Tabletop" />
+
       <div class="modal-actions">
         <button class="primary" id="createBoardBtn" type="button">Board erstellen</button>
         <button class="secondary" id="closeBoardsBtn" type="button">Schließen</button>
@@ -113,8 +120,8 @@
     </div>
   </div>
 
-  <div class="modal-backdrop" id="chessModal" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Schachuhr einstellen">
+  <div class="modal-backdrop" id="chessModal">
+    <div class="modal">
       <h2>Schachuhr einstellen</h2>
 
       <label for="chessConfigTitle">Titel</label>
@@ -122,9 +129,9 @@
 
       <label>Zeit pro Spieler</label>
       <div class="time-fields">
-        <input id="chessHours" type="number" min="0" max="99" placeholder="Std" inputmode="numeric" />
-        <input id="chessMinutes" type="number" min="0" max="59" placeholder="Min" inputmode="numeric" />
-        <input id="chessSeconds" type="number" min="0" max="59" placeholder="Sek" inputmode="numeric" />
+        <input id="chessHours" type="number" min="0" max="99" inputmode="numeric" placeholder="Std" />
+        <input id="chessMinutes" type="number" min="0" max="59" inputmode="numeric" placeholder="Min" />
+        <input id="chessSeconds" type="number" min="0" max="59" inputmode="numeric" placeholder="Sek" />
       </div>
 
       <label>Spieler</label>
@@ -147,7 +154,10 @@
         <option value="soft">Soft</option>
       </select>
 
-      <div class="helper">Spielerfläche antippen: eigener Timer stoppt, anderer Timer startet. Stopp/Pause pausiert beide Zeiten. Der Schachuhr-Alarm klingt maximal 10 Sekunden.</div>
+      <div class="helper">
+        Spielerfläche antippen: Dieser Spieler ist fertig, sein Timer stoppt und der andere läuft.
+        Der Alarm endet nach 10 Sekunden automatisch.
+      </div>
 
       <div class="modal-actions">
         <button class="secondary" id="cancelChessSettingsBtn" type="button">Abbrechen</button>
@@ -158,6 +168,6 @@
     </div>
   </div>
 
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

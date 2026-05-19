@@ -1,202 +1,78 @@
-# Schritt-für-Schritt: App auf das iPad bekommen
+# Schritt-für-Schritt: App auf iPad installieren
 
 ## 1. ZIP entpacken
 
-Lade die ZIP herunter und entpacke sie auf deinem Windows-11-PC.
+Entpacke die ZIP-Datei auf deinem Windows-PC.
 
-Du solltest danach diesen Ordnerinhalt sehen:
+## 2. GitHub-Repository öffnen
 
-```text
-index.html
-styles.css
-app.js
-manifest.webmanifest
-sw.js
-.nojekyll
-README.md
-TUTORIAL.md
-icons/
-```
+Öffne dein Repository, in dem die App bereits deployed ist.
 
-Wichtig: `index.html` muss direkt im Hauptordner liegen, nicht in einem Unterordner.
+## 3. Dateien ersetzen
 
----
+Lade den Inhalt des entpackten Ordners hoch und ersetze die alten Dateien:
 
-## 2. GitHub-Repository erstellen
+- index.html
+- styles.css
+- app.js
+- manifest.webmanifest
+- sw.js
+- .nojekyll
+- icons/
 
-1. Öffne `github.com`.
-2. Melde dich an.
-3. Oben rechts auf `+` klicken.
-4. `New repository` wählen.
-5. Repository-Name setzen, z. B.:
+Wichtig: Die Dateien müssen direkt im Hauptverzeichnis liegen, nicht in einem Unterordner.
 
-```text
-multi-timer-app
-```
+## 4. Commit ausführen
 
-6. Sichtbarkeit: `Public`.
-7. `Create repository` klicken.
+Unten auf `Commit changes` klicken.
 
----
+## 5. GitHub Pages warten lassen
 
-## 3. Dateien hochladen
+Warte, bis GitHub Pages neu deployed hat.
 
-Im neuen Repository:
+## 6. iPad-Cache leeren / App aktualisieren
 
-1. `Add file` anklicken.
-2. `Upload files` wählen.
-3. Alle entpackten Dateien und den Ordner `icons` hochladen.
-4. Unten bei Commit-Nachricht z. B. eintragen:
+Da die App offline cached, kann das iPad die alte Version behalten.
 
-```text
-Initial upload
-```
+Empfohlen:
 
-5. `Commit changes` klicken.
+1. Home-Screen-App vom iPad löschen.
+2. Safari öffnen.
+3. GitHub-Pages-Link öffnen.
+4. Seite neu laden.
+5. Teilen → Zum Home-Bildschirm.
+6. App neu hinzufügen.
 
-Die Struktur im Repository muss so aussehen:
+## 7. Ton aktivieren
 
-```text
-multi-timer-app/
-├─ index.html
-├─ styles.css
-├─ app.js
-├─ manifest.webmanifest
-├─ sw.js
-├─ .nojekyll
-├─ README.md
-├─ TUTORIAL.md
-└─ icons/
-   ├─ icon-180.png
-   ├─ icon-192.png
-   └─ icon-512.png
-```
+Nach dem Start einmal `Ton aktivieren / testen` antippen.
 
----
+## 8. Bedienung
 
-## 4. GitHub Pages aktivieren
+### Timer bearbeiten
 
-1. Im Repository oben `Settings` öffnen.
-2. Links `Pages` anklicken.
-3. Unter `Build and deployment` einstellen:
+1. Oben auf `Bearb.` tippen.
+2. Timer antippen.
+3. Einstellungen ändern.
+4. Speichern.
+5. Oben auf `Fertig` tippen.
 
-| Feld | Wert |
-|---|---|
-| Source | Deploy from a branch |
-| Branch | main |
-| Folder | /root |
+### Timer starten
 
-4. `Save` klicken.
+- Wenn Bearbeiten aus ist: Timer antippen.
 
-Nach kurzer Zeit zeigt GitHub eine URL an, ungefähr so:
+### Schachuhr einstellen
 
-```text
-https://DEIN-GITHUB-NAME.github.io/multi-timer-app/
-```
+- Schachuhr-Tab öffnen.
+- Oben rechts Zahnrad antippen.
+- Zeit, Namen, Farben und Sound einstellen.
 
----
+### Schachuhr verwenden
 
-## 5. App am PC testen
+- Spielerfläche antippen: eigener Zug endet, anderer Spieler startet.
+- `Stopp / Pause`: gesamte Uhr pausieren.
+- `Zurücksetzen`: Restzeit, Aktivzeit und Züge zurücksetzen.
 
-Öffne die GitHub-Pages-Adresse am PC.
+## Hinweis
 
-Prüfe:
-
-| Prüfung | Erwartung |
-|---|---|
-| App lädt | Ja |
-| Timer-Tab sichtbar | Ja |
-| Schachuhr-Tab sichtbar | Ja |
-| Boards öffnen | Ja |
-| Timer startet per Klick | Ja |
-| Sound-Test nach Klick | Ja |
-
----
-
-## 6. App auf dem iPad öffnen
-
-Auf dem iPad:
-
-1. Safari öffnen.
-2. Deine GitHub-Pages-Adresse eingeben.
-3. App laden lassen.
-4. `Ton aktivieren / testen` antippen.
-
----
-
-## 7. App zum Home-Bildschirm hinzufügen
-
-In Safari auf dem iPad:
-
-1. Teilen-Symbol antippen.
-2. `Zum Home-Bildschirm` wählen.
-3. Namen prüfen, z. B. `Multi Timer`.
-4. `Hinzufügen` antippen.
-
-Danach erscheint ein App-Icon auf deinem iPad.
-
----
-
-## 8. App benutzen
-
-1. App über das neue Icon starten.
-2. Einmal `Ton aktivieren / testen` antippen.
-3. Timer oder Schachuhr auswählen.
-
----
-
-## 9. Für zuverlässige Nutzung beim Spielen
-
-Die Web-App funktioniert am zuverlässigsten, wenn das iPad aktiv bleibt.
-
-Empfohlene Einstellung:
-
-```text
-Einstellungen → Anzeige & Helligkeit → Automatische Sperre → Nie
-```
-
-Falls `Nie` nicht verfügbar ist, liegt es oft an Energiesparmodus, Geräteverwaltung oder Familien-/Firmenprofil.
-
----
-
-## 10. Bedienung
-
-### Multi-Timer
-
-| Aktion | Ergebnis |
-|---|---|
-| Timer antippen | Start / Pause / Fortsetzen |
-| Timer 5 Sekunden halten | Timer bearbeiten |
-| `+` antippen | Timer hinzufügen |
-| `Boards` antippen | Timer-Zusammenstellungen verwalten |
-| `Alle zurücksetzen` | Timer zurücksetzen |
-
-### Schachuhr
-
-| Aktion | Ergebnis |
-|---|---|
-| Spielerfläche antippen | Spieler beendet seinen Zug, anderer Timer startet |
-| `Stopp / Pause` | Beide Zeiten pausieren |
-| `Zurücksetzen` | Restzeit, Aktivzeit und Züge zurücksetzen |
-| Spielerfläche 5 Sekunden halten | Schachuhr-Einstellungen öffnen |
-| Zeit abgelaufen | Alarm maximal 10 Sekunden, danach ruhig |
-
----
-
-## 11. Einschränkung
-
-Diese App ist eine GitHub-Pages-PWA, keine native iOS-App.
-
-| Situation | Verhalten |
-|---|---|
-| App sichtbar, Bildschirm an | Gut |
-| Bildschirm ausgeschaltet | Nicht zuverlässig |
-| App im Hintergrund | Nicht zuverlässig |
-| App später wieder geöffnet | Zeit wird nachberechnet |
-
-Für einen echten Hintergrund-Wecker bräuchte man eine native iOS-App oder Push-Infrastruktur.
-
-
-## iPad Long-Press Fix
-
-Diese Version deaktiviert Textauswahl und das iOS-Touch-Callout auf Timer- und Schachuhr-Flächen, damit langes Drücken die Einstellungen öffnet statt Text zu markieren.
+Eine PWA klingelt auf iPad/iPhone nur zuverlässig, wenn die App offen ist und der Bildschirm aktiv bleibt.
